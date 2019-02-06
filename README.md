@@ -56,10 +56,21 @@ you should return the international number format, using the following country l
 EXAMPLE COUNTRY LIST
 
 
-
+Possible updates/changes
+* make a call to an unknown customer
+* do updates to the customer ?
  
 ## ProductRepository, returns a list of products with:
 
+The product repository will return a list of all the products for all the customers.
+
+Then you should pick up only the products of your customer and return them in the following format:
+
+WE can also have the repo with two functions, getAll, and getAllByPartyId. Then make the customer repo to return partyId not for all the customers, so the ones with partyId will be able to use the filter function, while the others will need to pick the correct products using accountNumber
+
+```json
+
+```
     
 
-CustomerProductRepository
+## CustomerProductRepository
