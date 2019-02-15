@@ -68,9 +68,48 @@ Then you should pick up only the products of your customer and return them in th
 
 WE can also have the repo with two functions, getAll, and getAllByPartyId. Then make the customer repo to return partyId not for all the customers, so the ones with partyId will be able to use the filter function, while the others will need to pick the correct products using accountNumber
 
-```json
 
+```json
+id
+name
+status
+startingDate
 ```
     
 
 ## CustomerProductRepository
+
+We want the monthly invoce for a customer. You will need to return the active products for the specified month, their prices and a total.
+
+
+
+```json
+{
+	"customer": {
+		"firstName": "Raquel",
+		"middleName": "",
+		"lastName": "",
+		"address": "",
+		"contactNumber": "",
+		"contactEmail": ""
+	},
+	"invoiceDate:": "",
+	"products": [{
+			"name": "Product A",
+			"price": 0.00
+		},
+		{
+			"name": "product B",
+			"price": 0.00
+		}
+	],
+	"subtotal": 0.00,
+	"total": 0.00
+}
+```
+
+- summary of the kata for the candidate
+- document for the interviewer (common questions for second interview or updates to the kata for pairing process)
+- create JARS and DATA for them
+- do the kata in your free time 
+- some test already done to validate kata
