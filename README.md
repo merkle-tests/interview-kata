@@ -1,40 +1,39 @@
-** There is 3 repositories services: 
+** There are 3 repositories services:
 
 ## CUSTOMER REPOSITORY
-Given the following http request http://localhost:8080/customer/1 returns the following customer information in json format
-```json
+Given the following http request http://localhost:8080/customer/1 returns the following customer information
+in json format:
 {
-    "firstName":"Raquel",
+    "firstName":"Miguel",
     "middleName":"",
-    "lastName":"",
-    "gener":"Male",
-    "birthDay":"12th December 1980",
+    "lastName":"Ferrandis",
+    "gender":"male",
+    "birthday":"12th December 1980",
     "age":"32",
-    "address":"",
-    "contactNumber":"",
-    "contactEmail":""
+    "address":"C/Bergara 22 P3 P6 08085-Barcelona (Spain)",
+    "contactNumber":"+34 666 111 333",
+    "contactEmail":"miguel@gmail.com"
 }
-```
-You will have a customer repository JAR. This is what the repository will return. All fields will be String
-```json
-NAME
-GENDER
-BIRTHDAY
-ADDRESS
-    STREET NAME
-    STREET NUMBER
-    CITY
-    POST CODE
-    COUNTRY
-EMAIL
-TELEPHONE NUMBER
-```
 
-Rules
+************************ APIs ******************************************************************
+
+CUSTOMER API:
+There is a Customer Repository JAR. The repository will return a Customer object with the
+following attributes:
+     String accountNumber, String name, String gender, String birthday, String email, String phoneNumber, Address address (containing
+        String addressLine1, String addressLine2, String city, String postCode, String country)
+and a CustomerRepository object with the following attributes:
+    String customerId, String productId, String effectiveFrom, String effectiveTo
+
+PRODUCT API:
+The Product Repository will provide us with the Product object with the following attributes:
+     String id, String name, String price;
+
+**************************  Rules  **************************************************************
 Name:
-if it has two words, those should be firstName and lastName
-if it has three word, firstName , middleName and lastName
-If it has mora than 3 words, 1 -> firstName, 2 -> middleName, rest lastName
+- if it is composed by two words, those should be firstName and lastName
+- if it is composed by three words, they represent firstName , middleName and lastName
+- if it is composed by more than three words, 1 -> firstName, 2 -> middleName, rest -> lastName
 
 Gender:
 M -> male
@@ -42,23 +41,25 @@ F -> female
 X -> unspecified
 
 Birthday:
-It will return an String with the full date (yyyy/mm/dd), you should parse it.
+It will return an String with the full date (yyyy/mm/dd), you should parse it to follow the above-mentioned
+convention.
 
 Address:
 You should concatenate all the fields to a String variable, like this example:
-EXAMPLE MISSING
+C/Bergara 22 P3 P6 08085-Barcelona (Spain)
 
 EMAIL:
 no rules for email
 
 TELEPHONE NUMBER:
 you should return the international number format, using the following country list.
-EXAMPLE COUNTRY LIST
-
+- Spain: +34
+- UK:    +44
+- IRL:   +353
 
 Possible updates/changes
-* make a call to an unknown customer
-* do updates to the customer ?
+* make a request for an unknown customer
+* do updates to the customer
  
 ## ProductRepository, returns a list of products with:
 
