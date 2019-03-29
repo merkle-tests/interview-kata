@@ -4,21 +4,53 @@ Our client, SkiTV, is a company that provides broadband entertainment services t
 They have hired us to create new JSON REST APIs for their frontend on top of the infrastructure they already have.
 
 ## Current available infrastructure
-Our client already has a repository infrastructure that they have asked us to reuse, it consists of the following repositories:
+Our client already has a repository infrastructure that they have asked us to reuse, and we cannot change it.
 
-_(TODO: Review the repositories information)_
+The dependency contains the following repositories:
 
-CUSTOMER API:
-There is a Customer Repository JAR. The repository will return a Customer object with the
-following attributes:
-     String accountNumber, String name, String gender, String birthday, String email, String phoneNumber, Address address (containing
-        String addressLine1, String addressLine2, String city, String postCode, String country)
-and a CustomerRepository object with the following attributes:
-    String customerId, String productId, String effectiveFrom, String effectiveTo
+### Customer Repository:
 
-PRODUCT API:
-The Product Repository will provide us with the Product object with the following attributes:
-     String id, String name, String price;
+This repository will return a `Customer` object with the following attributes:
+
+| Type    | Name          |
+|---------|---------------|
+| String  | accountNumber |
+| String  | name          |
+| String  | gender        |
+| String  | birthday      |
+| String  | email         |
+| String  | phoneNumber   |
+| Address | address       |
+
+The `Address` object consists of the following attributes: 
+
+| Type    | Name         |
+|---------|--------------|
+| String  | addressLine1 |
+| String  | addressLine2 |
+| String  | city         |
+| String  | postCode     |
+| String  | country      |
+
+This repository also has a method to return a relationship between customers and their products. The 
+`CustomerRepository` object has the following attributes:
+
+| Type    | Name          |
+|---------|---------------|
+| String  | customerId    |
+| String  | productId     |
+| String  | effectiveFrom |
+| String  | effectiveTo   |
+
+### Products Repository:
+
+The Product Repository will provide us with the `Product` object with the following attributes:
+
+| Type    | Name  |
+|---------|-------|
+| String  | id    |
+| String  | name  |
+| String  | price |
 
 # New Requirements
 
@@ -26,7 +58,7 @@ The Product Repository will provide us with the Product object with the followin
 
 Our client has asked us to provide a REST API that will return information about their subscribers.
 
-They are expecting the following http request `http://localhost:8080/customer/1` to return the following
+They are expecting the following `GET` http request `http://localhost:8080/customer/1` to return the following
 customer information in json format:
 
 ```json
@@ -57,48 +89,60 @@ We have already agreed with them the following rules:
     * X -> unspecified
 
 * **Birthday:**
-The repository will return an String with the date with format: `yyyy/mm/dd`.
-The REST API should return the date with the format of the example (`12th December 1980`).
+    
+    The repository will return an String with the date with format: `yyyy/mm/dd`.
+    The REST API should return the date with the format of the example (`12th December 1980`).
 
 * **Address:**
-You should concatenate all the fields to a String variable, like this example:
-C/Bergara 22 P3 P6 08085-Barcelona (Spain)
+    
+    We should concatenate all the fields to a `String` variable, like this example:
+    `C/Bergara 22 P3 P6 08085-Barcelona (Spain)`.
 
-EMAIL:
-no rules for email
+* **Email:**
+    
+    _no rules for email_
 
-TELEPHONE NUMBER:
-you should return the international number format, using the following country list.
-- Spain: +34
-- UK:    +44
-- IRL:   +353
+* **Telephone Number:**
 
-Possible updates/changes
-* make a request for an unknown customer
-* do updates to the customer
+    We should return the international number format, using the following country list:
+    
+    - Spain: +34
+    - UK:    +44
+    - IRL:   +353
+
+
+> NOTES FOR OURSELVES:
+>
+>Possible updates/changes
+>* make a request for an unknown customer
+>* do updates to the customer
  
 ## 2) Customer product information REST API
 
-The product repository will return a list of all the products for all the customers.
+Our client also needs a REST API to provide a list of subscriptions a customer has.
 
-Then you should pick up only the products of your customer and return them in the following format:
-
-WE can also have the repo with two functions, getAll, and getAllByPartyId. Then make the customer repo to return partyId not for all the customers, so the ones with partyId will be able to use the filter function, while the others will need to pick the correct products using accountNumber
-
+They are expecting the following `GET` http request `http://localhost:8080/customer/1/products` to return the following
+products information in json format:
 
 ```json
-id
-name
-status
-startingDate
+{
+  "TODO" : "Define response format"
+}
+
 ```
+
+> NOTES FOR OURSELVES:
+>
+>We can also have the repo with two functions, getAll, and getAllByPartyId. Then make the customer repo to return partyId not for all the customers, so the ones with partyId will be able to use the filter function, while the others will need to pick the correct products using accountNumber
     
 
 ## 3) Customer invoice information REST API
 
-We want the monthly invoce for a customer. You will need to return the active products for the specified month, their prices and a total.
+Finally, our client needs a REST API to provide the monthly invoice for a customer. 
+We will need to return the active products for the specified month, their prices and a total.
 
-
+They are expecting the following `GET` http request `http://localhost:8080/customer/1/invoices` to return the following
+invoice information in json format:
 
 ```json
 {
@@ -125,8 +169,10 @@ We want the monthly invoce for a customer. You will need to return the active pr
 }
 ```
 
-- summary of the kata for the candidate
-- document for the interviewer (common questions for second interview or updates to the kata for pairing process)
-- create JARS and DATA for them
-- do the kata in your free time 
-- some test already done to validate kata
+> NOTES FOR OURSELVES:
+>
+>- summary of the kata for the candidate
+>- document for the interviewer (common questions for second interview or updates to the kata for pairing process)
+>- create JARS and DATA for them
+>- do the kata in your free time 
+>- some test already done to validate kata
