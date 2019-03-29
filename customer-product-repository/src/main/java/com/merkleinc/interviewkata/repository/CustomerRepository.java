@@ -8,8 +8,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.merkleinc.interviewkata.repository.exception.RepositoryException;
 import com.merkleinc.interviewkata.repository.model.Customer;
 import com.merkleinc.interviewkata.repository.model.CustomerProduct;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Collections;
+import java.util.List;
+
 public class CustomerRepository implements CustomerApi {
 
     private final List<Customer> customers;
@@ -33,10 +40,11 @@ public class CustomerRepository implements CustomerApi {
     }
 
     @Override
-    public Customer getCustomer(String customerId) {
+    public Customer getCustomer(String customerId) throws RepositoryException {
         return customers.stream()
                 .filter(e -> customerId.equals(e.getId()))
-                .collect(Collectors.toList()).get(0);
+                .findFirst()
+                .orElseThrow(() -> new RepositoryException("Customer not found"));
     }
 
     @Override
