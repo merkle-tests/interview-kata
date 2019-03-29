@@ -2,6 +2,7 @@ package com.merkleinc.interviewkata.repository;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +13,6 @@ import com.merkleinc.interviewkata.repository.model.CustomerProduct;
 public class CustomerRepository implements CustomerApi {
 
     private final List<Customer> customers;
-
     private final List<CustomerProduct> customerProducts;
 
     public CustomerRepository() throws IOException {
@@ -46,6 +46,26 @@ public class CustomerRepository implements CustomerApi {
 
     @Override
     public List<CustomerProduct> getCustomerProducts(String accountNumber) {
+        Customer customer = findCustomerByAccountNumber(accountNumber);
+        return findProductsByCustomerId(customer.getId());
+    }
+
+    private Customer findCustomerByAccountNumber(String accountNumber) {
+        for (Customer customer : customers){
+            if (customer.getAccountNumber().equalsIgnoreCase(accountNumber)){
+                return customer;
+            }
+        }
         return null;
+    }
+
+    private List<CustomerProduct> findProductsByCustomerId(String id){
+        List<CustomerProduct> customerProducts = new ArrayList<>();
+        for (CustomerProduct customerProduct : customerProducts){
+            if (customerProduct.getCustomerId().equalsIgnoreCase(id)){
+                customerProducts.add(customerProduct);
+            }
+        }
+        return customerProducts;
     }
 }
