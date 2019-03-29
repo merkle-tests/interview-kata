@@ -1,21 +1,12 @@
-** There are 3 repositories services:
+# Background
 
-## CUSTOMER REPOSITORY
-Given the following http request http://localhost:8080/customer/1 returns the following customer information
-in json format:
-{
-    "firstName":"Miguel",
-    "middleName":"",
-    "lastName":"Ferrandis",
-    "gender":"male",
-    "birthday":"12th December 1980",
-    "age":"32",
-    "address":"C/Bergara 22 P3 P6 08085-Barcelona (Spain)",
-    "contactNumber":"+34 666 111 333",
-    "contactEmail":"miguel@gmail.com"
-}
+Our client, SkiTV, is a company that provides broadband entertainment services to its subscribers.
+They have hired us to create new JSON REST APIs for their frontend on top of the infrastructure they already have.
 
-************************ APIs ******************************************************************
+## Current available infrastructure
+Our client already has a repository infrastructure that they have asked us to reuse, it consists of the following repositories:
+
+_(TODO: Review the repositories information)_
 
 CUSTOMER API:
 There is a Customer Repository JAR. The repository will return a Customer object with the
@@ -29,22 +20,47 @@ PRODUCT API:
 The Product Repository will provide us with the Product object with the following attributes:
      String id, String name, String price;
 
-**************************  Rules  **************************************************************
-Name:
-- if it is composed by two words, those should be firstName and lastName
-- if it is composed by three words, they represent firstName , middleName and lastName
-- if it is composed by more than three words, 1 -> firstName, 2 -> middleName, rest -> lastName
+# New Requirements
 
-Gender:
-M -> male
-F -> female
-X -> unspecified
+## 1) Customer information REST API
 
-Birthday:
-It will return an String with the full date (yyyy/mm/dd), you should parse it to follow the above-mentioned
-convention.
+Our client has asked us to provide a REST API that will return information about their subscribers.
 
-Address:
+They are expecting the following http request `http://localhost:8080/customer/1` to return the following
+customer information in json format:
+
+```json
+{
+    "firstName":"Miguel",
+    "middleName":"",
+    "lastName":"Ferrandis",
+    "gender":"male",
+    "birthday":"12th December 1980",
+    "age":"32",
+    "address":"C/Bergara 22 P3 P6 08085-Barcelona (Spain)",
+    "contactNumber":"+34 666 111 333",
+    "contactEmail":"miguel@gmail.com"
+}
+```
+
+However, as you might have realised, the repository is not returning the customer data in this format. 
+We have already agreed with them the following rules:
+
+* **Name:**
+    * if it is composed by two words, those should be firstName and lastName
+    * if it is composed by three words, they represent firstName, middleName and lastName
+    * if it is composed by more than three words, 1 -> firstName, 2 -> middleName, rest -> lastName
+
+* **Gender:**
+    * M -> male
+    * F -> female
+    * X -> unspecified
+
+* **Birthday:**
+The repository will return an String with the date with format: `yyyy/mm/dd`.
+The REST API should return the date with the format of the example (`12th December 1980`).
+
+* **Address:**
 You should concatenate all the fields to a String variable, like this example:
 C/Bergara 22 P3 P6 08085-Barcelona (Spain)
 
@@ -61,7 +77,7 @@ Possible updates/changes
 * make a request for an unknown customer
 * do updates to the customer
  
-## ProductRepository, returns a list of products with:
+## 2) Customer product information REST API
 
 The product repository will return a list of all the products for all the customers.
 
@@ -78,7 +94,7 @@ startingDate
 ```
     
 
-## CustomerProductRepository
+## 3) Customer invoice information REST API
 
 We want the monthly invoce for a customer. You will need to return the active products for the specified month, their prices and a total.
 
