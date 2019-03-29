@@ -13,6 +13,8 @@ public class CustomerRepository implements CustomerApi {
 
     private final List<Customer> customers;
 
+    private final List<CustomerProduct> customerProducts;
+
     public CustomerRepository() throws IOException {
 
         this.customers = Collections.unmodifiableList(
@@ -20,6 +22,13 @@ public class CustomerRepository implements CustomerApi {
                         new InputStreamReader(CustomerRepository.class.
                                 getResourceAsStream("/customer/customers.json")),
                         new TypeReference<List<Customer>>() {
+                        }));
+
+        this.customerProducts = Collections.unmodifiableList(
+                new ObjectMapper().readValue(
+                        new InputStreamReader(CustomerRepository.class.
+                                getResourceAsStream("/customer/customerProducts.json")),
+                        new TypeReference<List<CustomerProduct>>() {
                         }));
     }
 
@@ -32,7 +41,7 @@ public class CustomerRepository implements CustomerApi {
 
     @Override
     public List<CustomerProduct> getCustomerProducts() {
-        return null;
+        return customerProducts;
     }
 
     @Override
