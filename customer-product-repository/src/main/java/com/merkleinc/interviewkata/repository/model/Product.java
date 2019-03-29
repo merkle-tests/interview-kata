@@ -1,5 +1,6 @@
 package com.merkleinc.interviewkata.repository.model;
 
+import java.util.StringJoiner;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,5 +31,14 @@ public class Product {
 
     public String getPrice() {
         return price;
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", Product.class.getSimpleName() + "[", "]")
+                .add("id='" + id + "'")
+                .add("name='" + name + "'")
+                .add("price='" + price + "'")
+                .toString();
     }
 }
