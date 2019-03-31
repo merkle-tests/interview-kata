@@ -5,9 +5,12 @@ import static java.util.stream.Collectors.groupingBy;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.junit.Assert;
 import org.junit.Test;
 import com.merkleinc.interviewkata.repository.model.CustomerProduct;
 
@@ -43,5 +46,19 @@ public class DataExtractionUtils {
         for (CustomerProduct customerProduct : list) {
             System.out.println(customerProduct.toString());
         }
+
+        Assert.assertEquals(0, list.size());
+    }
+
+    @Test
+    public void checkNumberOfProductPerCustomerAndMonth() throws IOException {
+
+        CustomerRepository customerRepository = new CustomerRepository();
+
+        Map<String, List<CustomerProduct>> map = customerRepository.getCustomerProducts().stream()
+                .collect(groupingBy(e -> e.getCustomerId()));
+
+        LocalDate date = LocalDate.of(2016, Month.JANUARY, 1);
+
     }
 }
