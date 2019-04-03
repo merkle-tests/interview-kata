@@ -4,10 +4,13 @@ import static java.util.stream.Collectors.groupingBy;
 
 import java.io.IOException;
 import java.text.MessageFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.junit.Assert;
@@ -51,14 +54,44 @@ public class DataExtractionUtils {
     }
 
     @Test
-    public void checkNumberOfProductPerCustomerAndMonth() throws IOException {
+    public void checkNumberOfProductPerCustomerAndMonth() throws IOException, ParseException {
 
         CustomerRepository customerRepository = new CustomerRepository();
 
         Map<String, List<CustomerProduct>> map = customerRepository.getCustomerProducts().stream()
                 .collect(groupingBy(e -> e.getCustomerId()));
 
-        LocalDate date = LocalDate.of(2016, Month.JANUARY, 1);
+        LocalDate date = LocalDate.of(2016, Month.JANUARY, 2);
+        LocalDate endDate = LocalDate.of(2019, Month.DECEMBER, 31);
 
+        while (date.isBefore(endDate)) {
+            System.out.println(date.getMonth() + " " + date.getYear());
+            int totalCount = 0;
+            for (String key : map.keySet()) {
+
+                List<CustomerProduct> products = map.get(key);
+                int count = 0;
+                for (CustomerProduct product : products) {
+                    if (toLocalDate(product.getEffectiveFrom()).withDayOfMonth(1).isBefore(date) &&
+                            toLocalDate(product.getEffectiveTo()).withDayOfMonth(20).isAfter(date)) {
+                        count++;
+                        totalCount++;
+                    }
+                }
+                if (count > 0) {
+                    System.out.println(MessageFormat.format("customer {0} has {1} products", key, count));
+                }
+
+            }
+            System.out.println(MessageFormat.format("total count {0}", totalCount));
+            date = date.plusMonths(1);
+        }
+    }
+
+    private LocalDate toLocalDate(String string) throws ParseException {
+        Date dateParsed = sdf.parse(string);
+        return dateParsed.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
     }
 }
