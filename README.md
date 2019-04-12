@@ -79,6 +79,7 @@ However, as you might have realised, the repository is not returning the custome
 We have already agreed with them the following rules:
 
 * **Name:**
+    * if it is composed only by one word, it is the firstName
     * if it is composed by two words, those should be firstName and lastName
     * if it is composed by three words, they represent firstName, middleName and lastName
     * if it is composed by more than three words, 1 -> firstName, 2 -> middleName, rest -> lastName
