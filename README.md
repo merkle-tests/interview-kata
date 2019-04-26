@@ -177,3 +177,4 @@ invoice information in json format:
 >- create JARS and DATA for them
 >- do the kata in your free time 
 >- some test already done to validate kata
+>- add instructions how to run Spring boot
