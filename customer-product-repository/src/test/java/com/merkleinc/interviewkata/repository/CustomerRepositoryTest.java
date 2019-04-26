@@ -1,14 +1,13 @@
 package com.merkleinc.interviewkata.repository;
 
-import com.merkleinc.interviewkata.repository.exception.RepositoryException;
-import com.merkleinc.interviewkata.repository.model.Customer;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.IOException;
-
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import com.merkleinc.interviewkata.repository.exception.RepositoryException;
+import com.merkleinc.interviewkata.repository.model.Customer;
 
 public class CustomerRepositoryTest {
 
