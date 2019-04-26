@@ -11,5 +11,5 @@ public interface CustomerApi {
     Customer getCustomer(String customerId) throws RepositoryException;
 
     List<CustomerProduct> getCustomerProducts();
-    List<CustomerProduct> getCustomerProducts(String accountNumber);
+    List<CustomerProduct> getCustomerProducts(String accountNumber) throws RepositoryException;
 }
