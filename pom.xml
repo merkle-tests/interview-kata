@@ -21,7 +21,6 @@
 
     <modules>
         <module>service</module>
-        <module>customer-product-repository</module>
     </modules>
 
 </project>

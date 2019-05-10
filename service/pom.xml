@@ -29,6 +29,8 @@
             <groupId>com.merkleinc</groupId>
             <artifactId>customer-product-repository</artifactId>
             <version>${project.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/../lib/customer-product-repository.jar</systemPath>
         </dependency>
     </dependencies>
 
